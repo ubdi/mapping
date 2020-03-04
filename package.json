@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "git@github.com:ubdi/mapping.git",
   "author": "UBDI Development",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "ramda": "^0.27.0"
+  }
 }
