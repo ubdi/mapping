@@ -1,0 +1,8 @@
+{
+  "name": "ubdi-mapping",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:ubdi/mapping.git",
+  "author": "UBDI Development",
+  "license": "MIT"
+}

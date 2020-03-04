@@ -1,0 +1,5 @@
+.DS_Store
+node_modules
+dist
+data
+config/_dataSchema.json
