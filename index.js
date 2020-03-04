@@ -1,7 +1,13 @@
-const { map } = require('ramda')
-const { findObjectType, deepGetAndConcat } = require('./utils')
+const { findObjectType } = require('./utils')
 
-const converter = (dataSchema, objectTypeId) => {
+const serviceProviders = require('./_serviceProviders')
+const mappers = require('./mappers')
+
+const converter = (
+  dataSchema,
+  objectTypeId,
+  provider = serviceProviders.digime
+) => {
   const objectType = findObjectType(dataSchema.objectTypes, objectTypeId)
   if (!objectTypeId || !objectType) {
     throw new Error(
@@ -9,15 +15,13 @@ const converter = (dataSchema, objectTypeId) => {
     )
   }
 
-  return map(record =>
-    objectType.fieldMappings.reduce(
-      (acc, { sourceField, name }) => ({
-        ...acc,
-        [name]: deepGetAndConcat(record, sourceField)
-      }),
-      {}
+  if (!provider || !serviceProviders[provider]) {
+    throw new Error(
+      `Please provide a valid provider, ${provider} is not supported`
     )
-  )
+  }
+
+  return mappers[provider](objectType)
 }
 
 module.exports = { converter }
