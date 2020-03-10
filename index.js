@@ -6,7 +6,8 @@ const mappers = require('./mappers')
 const converter = (
   dataSchema,
   objectTypeId,
-  provider = serviceProviders.digime
+  provider = serviceProviders.digime,
+  dataSourceId
 ) => {
   const objectType = findObjectType(dataSchema.objectTypes, objectTypeId)
   if (!objectTypeId || !objectType) {
@@ -21,7 +22,7 @@ const converter = (
     )
   }
 
-  return mappers[provider](objectType)
+  return mappers[provider](objectType, dataSourceId)
 }
 
 module.exports = { converter }
