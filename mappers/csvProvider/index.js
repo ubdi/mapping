@@ -19,13 +19,15 @@ const csvMapper = (objectType, dataSourceId) => input => {
     )
   }
 
-  if (sourceMapper.isInvalid(input[0])) {
+  if (sourceMapper.isInvalid(input[0], objectType.id)) {
     throw new Error(
       'Input file seems invalid, maybe you are uploading a wrong file'
     )
   }
 
-  return pipe(tail, map(sourceMapper.mapper))(input)
+  console.log('xaxa', { input, objectType })
+
+  return pipe(tail, map(sourceMapper.mapper(objectType.id)))(input)
 }
 
 module.exports = csvMapper
