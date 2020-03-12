@@ -51,7 +51,7 @@ const isInvalid = firstRow => {
 const parseAmazonDate = date =>
   getUnixTime(parse(date, 'MM/dd/yy', new Date())) * 1000
 
-const mapper = row => {
+const mapper = objectTypeId => row => {
   /*
       4321 Purchase History
   

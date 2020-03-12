@@ -1,14 +1,14 @@
-const { map, pipe, tail } = require('ramda')
+const { map, keys } = require('ramda')
 
 const dataSources = require('../../_dataSources')
 
 const sourceMappers = require('./sources')
 
-const csvMapper = (objectType, dataSourceId) => input => {
+const jsonMapper = (objectType, dataSourceId) => input => {
   const dataSource = dataSources[dataSourceId]
   if (!dataSource) {
     throw new Error(
-      `Data Source ID ${dataSourceId} is not defined in CSV provider`
+      `Data Source ID ${dataSourceId} is not defined in JSON provider`
     )
   }
 
@@ -19,13 +19,13 @@ const csvMapper = (objectType, dataSourceId) => input => {
     )
   }
 
-  if (sourceMapper.isInvalid(input[0], objectType.id)) {
+  if (sourceMapper.isInvalid(keys(input[0]), objectType.id)) {
     throw new Error(
       'Input file seems invalid, maybe you are uploading a wrong file'
     )
   }
 
-  return pipe(tail, map(sourceMapper.mapper(objectType.id)))(input)
+  return map(row => sourceMapper.mapper(objectType.id)(row))(input)
 }
 
-module.exports = csvMapper
+module.exports = jsonMapper
