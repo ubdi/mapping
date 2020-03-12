@@ -25,8 +25,6 @@ const csvMapper = (objectType, dataSourceId) => input => {
     )
   }
 
-  console.log('xaxa', { input, objectType })
-
   return pipe(tail, map(sourceMapper.mapper(objectType.id)))(input)
 }
 

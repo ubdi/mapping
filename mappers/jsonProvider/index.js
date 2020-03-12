@@ -25,9 +25,7 @@ const jsonMapper = (objectType, dataSourceId) => input => {
     )
   }
 
-  const a = map(row => sourceMapper.mapper(objectType.id)(row))(input)
-  console.log('xaxa', a)
-  return a
+  return map(row => sourceMapper.mapper(objectType.id)(row))(input)
 }
 
 module.exports = jsonMapper
