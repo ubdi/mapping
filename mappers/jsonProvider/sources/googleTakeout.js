@@ -1,4 +1,4 @@
-const { difference, replace } = require('ramda')
+const { difference, replace, isEmpty } = require('ramda')
 const { getUnixTime } = require('date-fns')
 
 const getExpectedInputKeys = objectTypeId => {
@@ -17,7 +17,10 @@ const getExpectedInputKeys = objectTypeId => {
 const isInvalid = (keys, objectTypeId) => {
   const expectedInputKeys = getExpectedInputKeys(objectTypeId)
 
-  return difference(expectedInputKeys, keys).length > 0
+  const missingFields = difference(expectedInputKeys, keys)
+  if (isEmpty(missingFields)) return false
+
+  return missingFields
 }
 
 const parseDate = date => getUnixTime(new Date(date)) * 1000

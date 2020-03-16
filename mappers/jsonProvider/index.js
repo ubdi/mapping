@@ -15,13 +15,15 @@ const jsonMapper = (objectType, dataSourceId) => input => {
   const sourceMapper = sourceMappers[dataSource]
   if (!sourceMapper) {
     throw new Error(
-      `Data Source ID ${dataSourceId} has no mappers in CSV provider`
+      `Data Source ID ${dataSourceId} has no mappers in JSON provider`
     )
   }
 
-  if (sourceMapper.isInvalid(keys(input[0]), objectType.id)) {
+  const missingFileds = sourceMapper.isInvalid(keys(input[0]), objectType.id)
+  if (missingFileds) {
     throw new Error(
-      'Input file seems invalid, maybe you are uploading a wrong file'
+      'Input file seems invalid, maybe you are uploading a wrong file. Missing fields: ' +
+        missingFileds
     )
   }
 

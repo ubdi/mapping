@@ -19,9 +19,11 @@ const csvMapper = (objectType, dataSourceId) => input => {
     )
   }
 
-  if (sourceMapper.isInvalid(input[0], objectType.id)) {
+  const missingFileds = sourceMapper.isInvalid(input[0], objectType.id)
+  if (missingFileds) {
     throw new Error(
-      'Input file seems invalid, maybe you are uploading a wrong file'
+      'Input file seems invalid, maybe you are uploading a wrong file. Missing fields: ' +
+        missingFileds
     )
   }
 
