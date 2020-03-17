@@ -87,12 +87,51 @@ const mapper = objectTypeId => row => {
     case 4401: {
       const company = row[3]
       const position = row[4]
-      const connectedOn = row[5]
+      const connectedon = row[5]
 
       return {
         company,
         position,
-        connectedOn: parseLinkedinDate(connectedOn)
+        connectedon: parseLinkedinDate(connectedon)
+      }
+    }
+    /*
+      Professional Positions
+    */
+    case 4402: {
+      const company = row[0]
+      const position = row[1]
+      const description = row[2]
+      const location = row[3]
+      const startedon = row[4]
+      const finishedon = row[5]
+
+      return {
+        company,
+        position,
+        description,
+        location,
+        startedon: parseLinkedinDate(startedon),
+        finishedon: parseLinkedinDate(finishedon)
+      }
+    }
+
+    /*
+      Education Degree
+    */
+    case 4403: {
+      const schoolname = row[0]
+      const startedon = row[1]
+      const endedon = row[2]
+      const degree = row[4]
+      const activities = row[5]
+
+      return {
+        schoolname,
+        startedon: parseLinkedinDate(startedon),
+        endedon: parseLinkedinDate(endedon),
+        degree,
+        activities
       }
     }
   }
